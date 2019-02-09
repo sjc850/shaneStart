@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <title>Home</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="favicon.png" rel="shortcut icon" type="image/x-icon" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript" ></script>
+       <script type="text/javascript">
+        $(function() {
+         var images = ['BG4.jpg', 'BG7.jpg', 'BG8.jpg', 'BG9.jpg', 'BG10.png', 'BG11.jpg', 'BG12.jpg', 'BG13.png'];
+         $('#background').css({'background-image': 'url(images/' + images[Math.floor(Math.random() * images.length)] + ')'});
+        });
+       </script>
+
+</head>
+
+
+<body>
+
+    <div id="search">
+            <input id="search-field" type="text" name="search-field" onkeypress="return search(event)"/>
+        </div>
+        <div id="background"></div>
+        <div class="container">
+            <div id="clock">
+            </div>
+            <div class="weather-container">
+                <div class="row">
+                    <div id="weather-description"class="inline"></div>
+                    <div class="inline">-</div>
+                    <div id="temp" class="inline"></div>
+                    
+                </div>
+            </div>
+
+        <div class="bookmark-container">
+            <div class="bookmark-set">
+                <div class="bookmark-title">Work</div>
+                <div class="bookmark-line">-</div>
+                <div class="bookmark-inner-container">
+                    <a class="bookmark" href="https://secure.acuityscheduling.com/appointments.php" target="_self">Acuity</a>
+                    <a class="bookmark" href="https://secure.helpscout.net/dashboard/" target="_self">Inbox</a>
+                    <a class="bookmark" href="https://secure.acuityscheduling.com/4cu1ty-admin/users.php" target="_self">User Lookup</a>
+                    <a class="bookmark" href="https://acuityscheduling.lessonly.com/library/lesson/71132-html-snippets" target="_self">Lessonly</a>
+                </div>
+            </div>
+            <div class="bookmark-set">
+                <div class="bookmark-title">Resources</div>
+                <div class="bookmark-line">-</div>
+                <div class="bookmark-inner-container">
+                    <a class="bookmark" href="https://app.livestorm.co/#/webinars" target="_self">Livestorm</a>
+                    <a class="bookmark" href="https://acuityscheduling.wistia.com/projects" target="_self">Wistia</a>
+                    <a class="bookmark" href="https://analytics.amplitude.com/share/7daaa69d71124a2fa631139e3cd4e78a" target="_self">Amplitude</a>
+                    <a class="bookmark" href="https://acuityscheduling.lessonly.com/library/lesson/71131-internal-information?section_id=541041#1706464" target="_self">Integrations</a>
+                </div>
+            </div>
+            <div class="bookmark-set">
+                <div class="bookmark-title">Code</div>
+                <div class="bookmark-line">-</div>
+                <div class="bookmark-inner-container">
+                    <a class="bookmark" href="https://codepen.io/pen" target="_self">CodePen</a>
+                    <a class="bookmark" href="https://app.netlify.com/" target="_self">Netlify</a>
+                    <a class="bookmark" href="https://console.aws.amazon.com/s3/home?region=us-west-2#" target="_self">AWS Storage</a>
+                    <a class="bookmark" href="https://www.youtube.com/user/TechGuyWeb" target="_self">Tutorials</a>
+                </div>
+            </div>
+            <div class="bookmark-set">
+            <div class="bookmark-title">Google</div>
+            <div class="bookmark-line">-</div>
+                <div class="bookmark-inner-container">
+                    <a class="bookmark" href="https://mail.google.com/mail/u/0/#inbox" target="_self">Mail</a>
+                    <a class="bookmark" href="https://docs.google.com/document/u/0/" target="_self">Docs</a>
+                    <a class="bookmark" href="https://calendar.google.com/calendar/r" target="_self">Calendar</a>
+                    <a class="bookmark" href="https://translate.google.com/?hl=en&tab=cT&authuser=0" target="_self">Translate</a>
+                </div>
+            </div>
+            <div class="bookmark-set">
+                <div class="bookmark-title">Frequents</div>
+                <div class="bookmark-line">-</div>
+                <div class="bookmark-inner-container">
+                    <a class="bookmark" href="https://m.itsme247.com/118/Authentication/Username" target="_self">SMFCU</a>
+                    <a class="bookmark" href="https://my.stcu.org/Authentication?ReturnUrl=DashboardV2" target="_self">STCU</a>
+                    <a class="bookmark" href="https://secure.getlungo.com/calendar" target="_self">Lungo</a>
+                    <a class="bookmark" href="https://www.icloud.com/" target="_self">iCloud</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Search on enter key event
+        function search(e) {
+            if (e.keyCode == 13) {
+                var val = document.getElementById("search-field").value;
+                window.open("https://google.com/search?q=" + val, "_self");
+            }
+        }
+
+         //Get current time and format
+        function getTime() {
+           let date = new Date(),
+                min = date.getMinutes(),
+                sec = date.getSeconds(),
+                hour = date.getHours();
+            return "" + 
+                (hour < 10 ? ("0" + hour) : hour) + ":" + 
+                (min < 10 ? ("0" + min) : min) + ":" + 
+                (sec < 10 ? ("0" + sec) : sec);
+        }
+
+        window.onload = () => {
+            let xhr = new XMLHttpRequest();
+            // Request to open weather map
+            xhr.open('GET', 'https://api.openweathermap.org/data/2.5/weather?id=5811704&units=imperial&APPID=07a16a42ac620c6b52af60107bb87bda');
+            xhr.onload = () => {
+               if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        let json = JSON.parse(xhr.responseText);
+                        console.log(json);
+                        document.getElementById("temp").innerHTML = "it's about " + json.main.temp.toFixed(0) + " F";
+                        document.getElementById("weather-description").innerHTML = json.weather[0].description;
+                    } else {
+                        console.log('error msg: ' + xhr.status);
+                    }
+                }
+            }
+           xhr.send();
+            // Set up the clock
+            document.getElementById("clock").innerHTML = getTime();
+            // Set clock interval to tick clock
+            setInterval( () => {
+               document.getElementById("clock").innerHTML = getTime();
+            },100);
+        }
+        document.addEventListener("keydown", event => {
+            if (event.keyCode == 32) {          // Spacebar code to open search
+                document.getElementById('search').style.display = 'flex';
+                document.getElementById('search-field').focus();
+            } else if (event.keyCode == 27) {   // Esc to close search
+                document.getElementById('search-field').value = '';
+                document.getElementById('search-field').blur();
+                document.getElementById('search').style.display = 'none';
+            }
+        });
+
+
+// Tap mobile code to open search (IN PROGRESS)
+/*
+var val = document.getElementById("search-field").value;
+
+document.addEventListener("mouseup", tapOrClick, false);
+document.addEventListener("touchend", tapOrClick, false);
+
+function tapOrClick(event) {
+                
+                document.getElementById('search').style.display = 'flex';
+                document.getElementById('search-field').focus();
+
+    event.preventDefault();
+    return false;
+}
+*/
+    </script>
+
+
+</body>
+</html>
